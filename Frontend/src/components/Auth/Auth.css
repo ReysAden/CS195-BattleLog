@@ -1,0 +1,18 @@
+.register-Box {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    background-color: aliceblue;
+    padding: 2rem;
+    border-radius: 8px;
+    width: 300px;
+}
+input {
+    width: 100%;
+    padding: 0.75rem;
+    font-size: 1rem;
+    border: 2px solid #dbdde4;
+    border-radius: 4px;
+}
