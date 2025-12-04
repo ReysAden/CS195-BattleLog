@@ -40,15 +40,19 @@ app.get("/", (req, res) => {
 // POST /users
 
 app.post("/User/Register", async (req, res) => {
-    try {
-        const newUser = new User(req.body);
-
-        const SavedUser = await newUser.save();
-
-        res.status(201).json(SavedUser);
-    } catch (error) {
-        res.status(400).json({message: error.message});
+  try {
+    const username = req.body.Name.replace(/\s+/g, '');
+    
+    if (!username) {
+      return res.status(400).json({message: "Username cannot be empty"});
     }
+    
+    const newUser = new User({ Name: username });
+    const SavedUser = await newUser.save();
+    res.status(201).json(SavedUser);
+  } catch (error) {
+    res.status(400).json({message: error.message});
+  }
 });
 
 app.get("/User", async (req,res) => {
@@ -58,6 +62,22 @@ app.get("/User", async (req,res) => {
 
     }catch (error) {
     res.status(500).json({message: error.message});
+  }
+});
+
+app.get("/User/:name", async (req, res) => {
+  try {
+    const username = req.params.name.replace(/\s+/g, '');
+    
+    const user = await User.findOne({ Name: username });
+    
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
+    
+    res.json(user);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
   }
 });
 

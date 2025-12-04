@@ -16,3 +16,14 @@ input {
     border: 2px solid #dbdde4;
     border-radius: 4px;
 }
+
+.auth-container {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.auth-content {
+  margin-top: 100px;
+}
