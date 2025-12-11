@@ -32,13 +32,11 @@ A full-stack web application for tracking Pokémon TCG match performance. Player
 
 ## Pictures
 
-![alt text](image.png)
+<img width="1712" height="1124" alt="Screenshot 2025-12-11 134404" src="https://github.com/user-attachments/assets/02280c94-4aec-4654-9a9c-f213e5b80a59" />
+<img width="1706" height="1115" alt="Screenshot 2025-12-11 134350" src="https://github.com/user-attachments/assets/93134ab7-22db-4d8e-a2bb-501811f9c7e3" />
+<img width="1712" height="1114" alt="Screenshot 2025-12-11 134334" src="https://github.com/user-attachments/assets/e5feaf17-02e8-41aa-a7fc-08bc7fd662af" />
+<img width="1697" height="1113" alt="Screenshot 2025-12-11 134308" src="https://github.com/user-attachments/assets/bc8fea20-a2ab-4dd0-836a-1dc0a73c3683" />
 
-![alt text](image-1.png)
-
-![alt text](image-2.png)
-
-![alt text](image-3.png)
 
 ## Setup Instructions
 
