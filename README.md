@@ -5,7 +5,7 @@ A full-stack web application for tracking Pokémon TCG Deck performance. Players
 ## Features
 
 - **User Authentication** - Register and sign in with username/password
-- **Deck Management** - Create and manage custom decks
+- **Deck Management** - Add custom decks
 - **Match Tracking** - Submit match results including deck used, opponent's deck, turn order, and outcome
 - **Statistics Dashboard** - View detailed performance metrics per deck:
   - Total games played
