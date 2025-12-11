@@ -1,6 +1,6 @@
 # Battle Log
 
-A full-stack web application for tracking Pokémon TCG match performance. Players can log their matches, analyze deck statistics, and share results with the community.
+A full-stack web application for tracking Pokémon TCG Deck performance. Players can log their matches, analyze deck statistics, and share results with the community.
 
 ## Features
 
