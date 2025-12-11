@@ -17,36 +17,52 @@ A full-stack web application for tracking Pokémon TCG match performance. Player
 ## Tech Stack
 
 **Frontend:**
+
 - React 19
 - Vite
 - React Router
 - CSS3
 
 **Backend:**
+
 - Node.js
 - Express 5
 - MongoDB
 - Mongoose
 
+## Pictures
+
+![alt text](image.png)
+
+![alt text](image-1.png)
+
+![alt text](image-2.png)
+
+![alt text](image-3.png)
+
 ## Setup Instructions
 
 ### Prerequisites
+
 - Node.js installed
 - MongoDB database (local or Atlas)
 
 ### Backend Setup
 
 1. Navigate to the Backend directory:
+
 ```bash
 cd Backend
 ```
 
 2. Install dependencies:
+
 ```bash
 npm install
 ```
 
 3. Create a `.env` file with your MongoDB connection string:
+
 ```
 MONGODB_URI=your_mongodb_connection_string
 PORT=3001
@@ -54,6 +70,7 @@ CLIENT_ORIGIN=http://localhost:5173
 ```
 
 4. Start the server:
+
 ```bash
 npm run dev
 ```
@@ -61,21 +78,25 @@ npm run dev
 ### Frontend Setup
 
 1. Navigate to the Frontend directory:
+
 ```bash
 cd Frontend
 ```
 
 2. Install dependencies:
+
 ```bash
 npm install
 ```
 
 3. Create a `.env` file:
+
 ```
 VITE_API_BASE_URL=http://localhost:3001
 ```
 
 4. Start the development server:
+
 ```bash
 npm run dev
 ```
@@ -84,16 +105,17 @@ npm run dev
 
 ## Deployment Link
 
-[Add your deployment link here]
+https://cs195battlelog.netlify.app
 
 ## Reflection
 
-This project was built to help Pokémon TCG players track and analyze their competitive performance. The focus was on creating a simple, straightforward interface that prioritizes functionality over complexity.
+This project was built to help Pokémon TCG players (could easily be any other TCG) track and analyze their deck's performance. The focus was on creating a simple, straightforward interface that prioritizes functionality over complexity.
 
 Key learning outcomes:
+
 - Building a full-stack MERN application
 - Implementing user authentication
 - Managing and calculating statistics from user data
 - Creating a community feature for sharing results
 
-Future improvements could include more detailed analytics, deck archetype categorization, and match history visualization.
+Future improvements could include more detailed analytics with more visuals, deck archetype categorization, and match history visualization.
