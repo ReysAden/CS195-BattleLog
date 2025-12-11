@@ -1,6 +1,8 @@
 import { useState } from 'react';
 import Topbar from '../Dashboard/Topbar';
 import Submission from '../Dashboard/Submission';
+import Stats from '../Dashboard/Stats';
+import Community from '../Dashboard/Community';
 import './Dashboard.css';
 
 function Dashboard() {
@@ -11,9 +13,9 @@ function Dashboard() {
       case 'submission':
         return <Submission />;
       case 'stats':
-        return <div><h2>Stats Coming Soon</h2></div>;
-      case 'profile':
-        return <div><h2>Profile Coming Soon</h2></div>;
+        return <Stats />;
+      case 'community':
+        return <Community />;
       default:
         return <Submission />;
     }

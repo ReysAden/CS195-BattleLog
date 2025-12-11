@@ -5,6 +5,7 @@ import { useNavigate } from 'react-router-dom';
 function SignIn() {
   const navigate = useNavigate();
   const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
   const [message, setMessage] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   
@@ -16,25 +17,36 @@ function SignIn() {
       return;
     }
     
+    if (!password.trim()) {
+      setMessage("Enter Your Password");
+      return;
+    }
+    
     setIsLoading(true);
     setMessage("");
     
     try {
-      const response = await fetch(`http://localhost:3001/User/${username}`, {
-        method: "GET",
+      const response = await fetch("http://localhost:3001/User/SignIn", {
+        method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
+        body: JSON.stringify({
+          Name: username,
+          Password: password
+        }),
       });
       
       const data = await response.json();
       
       if (response.ok) {
         setMessage("Sign in successful! ✅");
+        setUsername("");
+        setPassword("");
         localStorage.setItem('username', data.Name);
         setTimeout(() => navigate('/dashboard'), 1500);
       } else {
-        setMessage(`Error: ${data.message || "User not found"}`);
+        setMessage(`Error: ${data.message || "Sign in failed"}`);
       }
       
     } catch (error) {
@@ -57,7 +69,15 @@ function SignIn() {
         disabled={isLoading}
       />
       
-      <button 
+      <input 
+        type="password" 
+        placeholder="Enter your password"
+        value={password}
+        onChange={(e) => setPassword(e.target.value)}
+        disabled={isLoading}
+      />
+      
+      <button
         type="submit" 
         onClick={SignInUser}
         disabled={isLoading}

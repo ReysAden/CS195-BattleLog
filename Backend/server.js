@@ -22,6 +22,8 @@ mongoose
 // Import models
 const User = require("./models/User");
 const Decks = require("./models/Decks");
+const Game = require("./models/Game");
+const SharedStat = require("./models/SharedStat");
 
 
 // Root route
@@ -42,12 +44,17 @@ app.get("/", (req, res) => {
 app.post("/User/Register", async (req, res) => {
   try {
     const username = req.body.Name.replace(/\s+/g, '');
+    const password = req.body.Password;
     
     if (!username) {
       return res.status(400).json({message: "Username cannot be empty"});
     }
     
-    const newUser = new User({ Name: username });
+    if (!password) {
+      return res.status(400).json({message: "Password cannot be empty"});
+    }
+    
+    const newUser = new User({ Name: username, Password: password });
     const SavedUser = await newUser.save();
     res.status(201).json(SavedUser);
   } catch (error) {
@@ -81,6 +88,31 @@ app.get("/User/:name", async (req, res) => {
   }
 });
 
+app.post("/User/SignIn", async (req, res) => {
+  try {
+    const username = req.body.Name.replace(/\s+/g, '');
+    const password = req.body.Password;
+    
+    if (!username || !password) {
+      return res.status(400).json({message: "Username and password are required"});
+    }
+    
+    const user = await User.findOne({ Name: username });
+    
+    if (!user) {
+      return res.status(404).json({message: "User not found"});
+    }
+    
+    if (user.Password !== password) {
+      return res.status(401).json({message: "Invalid password"});
+    }
+    
+    res.status(200).json(user);
+  } catch (error) {
+    res.status(500).json({message: error.message});
+  }
+});
+
 app.post("/Decks/NewDeck", async (req, res) => {
     try {
         const newDeck = new Decks(req.body);
@@ -99,6 +131,45 @@ app.get("/Decks", async (req,res) => {
     res.json(Deck);
 
     }catch (error) {
+    res.status(500).json({message: error.message});
+  }
+});
+
+app.post("/Game/Submit", async (req, res) => {
+  try {
+    const newGame = new Game(req.body);
+    const savedGame = await newGame.save();
+    res.status(201).json(savedGame);
+  } catch (error) {
+    res.status(400).json({message: error.message});
+  }
+});
+
+app.get("/Game/:username", async (req, res) => {
+  try {
+    const username = req.params.username;
+    const games = await Game.find({ username: username });
+    res.json(games);
+  } catch (error) {
+    res.status(500).json({message: error.message});
+  }
+});
+
+app.post("/SharedStat", async (req, res) => {
+  try {
+    const newSharedStat = new SharedStat(req.body);
+    const savedStat = await newSharedStat.save();
+    res.status(201).json(savedStat);
+  } catch (error) {
+    res.status(400).json({message: error.message});
+  }
+});
+
+app.get("/SharedStat", async (req, res) => {
+  try {
+    const sharedStats = await SharedStat.find().sort({ createdAt: -1 });
+    res.json(sharedStats);
+  } catch (error) {
     res.status(500).json({message: error.message});
   }
 });

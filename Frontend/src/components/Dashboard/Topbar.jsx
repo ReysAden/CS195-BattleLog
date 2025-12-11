@@ -30,10 +30,10 @@ function Topbar({ activeTab, setActiveTab }) {
           Stats
         </button>
         <button 
-          className={`tab ${activeTab === 'profile' ? 'active' : ''}`}
-          onClick={() => setActiveTab('profile')}
+          className={`tab ${activeTab === 'community' ? 'active' : ''}`}
+          onClick={() => setActiveTab('community')}
         >
-          Profile
+          Community
         </button>
       </nav>
 

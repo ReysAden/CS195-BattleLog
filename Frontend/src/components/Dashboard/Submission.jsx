@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import './Submission.css';
 
 function Submission() {
@@ -8,14 +8,64 @@ function Submission() {
   const [result, setResult] = useState('');
   const [message, setMessage] = useState('');
   const [isLoading, setIsLoading] = useState(false);
+  const [decks, setDecks] = useState([]);
+  const [showAddDeck, setShowAddDeck] = useState(false);
+  const [newDeckName, setNewDeckName] = useState('');
 
-  const decks = [
-    'Aggro',
-    'Control',
-    'Midrange',
-    'Combo',
-    'Tempo'
-  ];
+  useEffect(() => {
+    fetchDecks();
+  }, []);
+
+  const fetchDecks = async () => {
+    try {
+      const response = await fetch("http://localhost:3001/Decks");
+      const data = await response.json();
+      setDecks(data);
+    } catch (error) {
+      console.error("Error fetching decks:", error);
+      setMessage("Error loading decks");
+    }
+  };
+
+  const handleAddDeck = async (e) => {
+    e.preventDefault();
+
+    if (!newDeckName.trim()) {
+      setMessage("Please enter a deck name");
+      return;
+    }
+
+    setIsLoading(true);
+    setMessage("");
+
+    try {
+      const response = await fetch("http://localhost:3001/Decks/NewDeck", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          DeckName: newDeckName
+        }),
+      });
+
+      const data = await response.json();
+
+      if (response.ok) {
+        setMessage("Deck added successfully! ✅");
+        setNewDeckName("");
+        setShowAddDeck(false);
+        fetchDecks();
+      } else {
+        setMessage(`Error: ${data.message || "Failed to add deck"}`);
+      }
+    } catch (error) {
+      console.error("Add deck error:", error);
+      setMessage("Network error. Please check if the server is running.");
+    } finally {
+      setIsLoading(false);
+    }
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -29,23 +79,34 @@ function Submission() {
     setMessage('');
 
     try {
-      console.log({
-        yourDeck,
-        oppDeck,
-        firstSecond,
-        result,
-        username: localStorage.getItem('username')
+      const response = await fetch("http://localhost:3001/Game/Submit", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          username: localStorage.getItem('username'),
+          yourDeck,
+          oppDeck,
+          firstSecond,
+          result
+        }),
       });
 
-      setMessage('Match submitted successfully! ✅');
-      setYourDeck('');
-      setOppDeck('');
-      setFirstSecond('');
-      setResult('');
+      const data = await response.json();
 
+      if (response.ok) {
+        setMessage('Match submitted successfully! ✅');
+        setYourDeck('');
+        setOppDeck('');
+        setFirstSecond('');
+        setResult('');
+      } else {
+        setMessage(`Error: ${data.message || "Submission failed"}`);
+      }
     } catch (error) {
       console.error('Submission error:', error);
-      setMessage('Error submitting match');
+      setMessage('Network error. Please check if the server is running.');
     } finally {
       setIsLoading(false);
     }
@@ -58,17 +119,45 @@ function Submission() {
       <div className="submission-form">
         <div className="deck-row">
           <div className="form-group">
-            <label>Your Deck</label>
-            <select 
-              value={yourDeck} 
-              onChange={(e) => setYourDeck(e.target.value)}
-              disabled={isLoading}
-            >
-              <option value="">Select your deck</option>
-              {decks.map((deck) => (
-                <option key={deck} value={deck}>{deck}</option>
-              ))}
-            </select>
+            <div className="label-row">
+              <label>Your Deck</label>
+              <button 
+                className="add-deck-btn" 
+                onClick={() => setShowAddDeck(!showAddDeck)}
+                type="button"
+              >
+                {showAddDeck ? "Cancel" : "+ Add Deck"}
+              </button>
+            </div>
+            {showAddDeck ? (
+              <div className="add-deck-form">
+                <input
+                  type="text"
+                  placeholder="Enter deck name"
+                  value={newDeckName}
+                  onChange={(e) => setNewDeckName(e.target.value)}
+                  disabled={isLoading}
+                />
+                <button 
+                  onClick={handleAddDeck}
+                  disabled={isLoading}
+                  className="add-btn"
+                >
+                  {isLoading ? "Adding..." : "Add"}
+                </button>
+              </div>
+            ) : (
+              <select 
+                value={yourDeck} 
+                onChange={(e) => setYourDeck(e.target.value)}
+                disabled={isLoading}
+              >
+                <option value="">Select your deck</option>
+                {decks.map((deck) => (
+                  <option key={deck._id} value={deck.DeckName}>{deck.DeckName}</option>
+                ))}
+              </select>
+            )}
           </div>
 
           <div className="form-group">
@@ -78,9 +167,9 @@ function Submission() {
               onChange={(e) => setOppDeck(e.target.value)}
               disabled={isLoading}
             >
-              <option value="">Select opponent's deck</option>
+            <option value="">Select opponent's deck</option>
               {decks.map((deck) => (
-                <option key={deck} value={deck}>{deck}</option>
+                <option key={deck._id} value={deck.DeckName}>{deck.DeckName}</option>
               ))}
             </select>
           </div>

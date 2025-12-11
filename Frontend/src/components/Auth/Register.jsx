@@ -5,6 +5,7 @@ import { useNavigate } from 'react-router-dom';
 function Register() {
   const navigate = useNavigate();
   const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
   const [message, setMessage] = useState("");
   const [isLoading, setIsLoading] = useState(false);
 
@@ -13,6 +14,11 @@ function Register() {
     
     if (!username.trim()) {
       setMessage("Please enter a username");
+      return;
+    }
+    
+    if (!password.trim()) {
+      setMessage("Please enter a password");
       return;
     }
     
@@ -26,7 +32,8 @@ function Register() {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({ 
-          Name: username
+          Name: username,
+          Password: password
         }),
       });
       
@@ -35,6 +42,7 @@ function Register() {
       if (response.ok) {
         setMessage("Registration successful! ✅");
         setUsername("");
+        setPassword("");
         localStorage.setItem('username', data.Name);
         setTimeout(() => navigate('/dashboard'), 1500);
       } else {
@@ -61,7 +69,15 @@ function Register() {
         disabled={isLoading}
       />
       
-      <button 
+      <input 
+        type="password" 
+        placeholder="Enter a password"
+        value={password}
+        onChange={(e) => setPassword(e.target.value)}
+        disabled={isLoading}
+      />
+      
+      <button
         type="submit" 
         onClick={RegisterUser}
         disabled={isLoading}

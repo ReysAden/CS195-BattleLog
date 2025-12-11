@@ -24,15 +24,79 @@
   margin-bottom: 1.5rem;
 }
 
+.deck-row .form-group {
+  margin-bottom: 0;
+}
+
 .form-group {
   margin-bottom: 1.5rem;
 }
 
-.form-group label {
-  display: block;
+.label-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
   margin-bottom: 0.5rem;
+}
+
+.form-group label {
   font-weight: 600;
   color: #2c3e50;
+}
+
+.add-deck-btn {
+  padding: 0.4rem 0.8rem;
+  background-color: #27ae60;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.add-deck-btn:hover {
+  background-color: #229954;
+}
+
+.add-deck-form {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.add-deck-form input {
+  flex: 1;
+  padding: 0.75rem;
+  border: 2px solid #ddd;
+  border-radius: 8px;
+  font-size: 1rem;
+}
+
+.add-deck-form input:focus {
+  outline: none;
+  border-color: #3498db;
+}
+
+.add-deck-form .add-btn {
+  padding: 0.75rem 1.5rem;
+  background-color: #27ae60;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.add-deck-form .add-btn:hover:not(:disabled) {
+  background-color: #229954;
+}
+
+.add-deck-form .add-btn:disabled {
+  background-color: #95a5a6;
+  cursor: not-allowed;
 }
 
 .form-group select {
@@ -61,25 +125,35 @@
   border: 2px solid #ddd;
   border-radius: 8px;
   font-size: 1rem;
+  font-weight: 600;
   cursor: pointer;
-  background: white;
   transition: all 0.3s;
+}
+
+.result-btn.win {
+  background-color: #d5f4e6;
+  color: #27ae60;
+  border-color: #27ae60;
 }
 
 .result-btn.win.active {
   background-color: #27ae60;
   color: white;
-  border-color: #27ae60;
+}
+
+.result-btn.loss {
+  background-color: #fadbd8;
+  color: #e74c3c;
+  border-color: #e74c3c;
 }
 
 .result-btn.loss.active {
   background-color: #e74c3c;
   color: white;
-  border-color: #e74c3c;
 }
 
 .result-btn:hover {
-  border-color: #3498db;
+  opacity: 0.8;
 }
 
 .submit-btn {
