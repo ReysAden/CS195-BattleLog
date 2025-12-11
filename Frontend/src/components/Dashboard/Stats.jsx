@@ -13,7 +13,7 @@ function Stats() {
   const fetchStats = async () => {
     try {
       const username = localStorage.getItem('username');
-      const response = await fetch(`http://localhost:3001/Game/${username}`);
+      const response = await fetch(`${import.meta.env.VITE_API_BASE_URL}/Game/${username}`);
       const games = await response.json();
 
       // Calculate stats per deck
@@ -59,7 +59,7 @@ function Stats() {
   const handleShare = async (deck) => {
     try {
       const username = localStorage.getItem('username');
-      const response = await fetch("http://localhost:3001/SharedStat", {
+      const response = await fetch(`${import.meta.env.VITE_API_BASE_URL}/SharedStat`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

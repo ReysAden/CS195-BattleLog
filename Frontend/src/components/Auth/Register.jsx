@@ -26,7 +26,7 @@ function Register() {
     setMessage("");
     
     try {
-      const response = await fetch("http://localhost:3001/User/Register", {
+      const response = await fetch(`${import.meta.env.VITE_API_BASE_URL}/User/Register`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

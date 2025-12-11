@@ -11,7 +11,7 @@ function Community() {
 
   const fetchSharedStats = async () => {
     try {
-      const response = await fetch("http://localhost:3001/SharedStat");
+      const response = await fetch(`${import.meta.env.VITE_API_BASE_URL}/SharedStat`);
       const data = await response.json();
       setSharedStats(data);
     } catch (error) {

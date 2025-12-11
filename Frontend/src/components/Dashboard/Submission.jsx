@@ -18,7 +18,7 @@ function Submission() {
 
   const fetchDecks = async () => {
     try {
-      const response = await fetch("http://localhost:3001/Decks");
+      const response = await fetch(`${import.meta.env.VITE_API_BASE_URL}/Decks`);
       const data = await response.json();
       setDecks(data);
     } catch (error) {
@@ -39,7 +39,7 @@ function Submission() {
     setMessage("");
 
     try {
-      const response = await fetch("http://localhost:3001/Decks/NewDeck", {
+      const response = await fetch(`${import.meta.env.VITE_API_BASE_URL}/Decks/NewDeck`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -79,7 +79,7 @@ function Submission() {
     setMessage('');
 
     try {
-      const response = await fetch("http://localhost:3001/Game/Submit", {
+      const response = await fetch(`${import.meta.env.VITE_API_BASE_URL}/Game/Submit`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
