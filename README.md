@@ -50,6 +50,7 @@ npm install
 ```
 MONGODB_URI=your_mongodb_connection_string
 PORT=3001
+CLIENT_ORIGIN=http://localhost:5173
 ```
 
 4. Start the server:
